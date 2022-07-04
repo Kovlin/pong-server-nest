@@ -3,6 +3,7 @@ import { PongServerService } from './pong-server.service';
 import { CreatePongServerDto } from './dto/create-pong-server.dto';
 import { UpdatePongServerDto } from './dto/update-pong-server.dto';
 import { Logger } from '@nestjs/common';
+import { timingSafeEqual } from 'crypto';
 
 
 /** @WebSocketGateway The decorator can pass in some configuration options, such as the following example:
@@ -51,6 +52,29 @@ export class PongServerGateway {
 		return {
 			msg1: 'Test 1',
 			msg2: 'Test 2',
+		}
+	}
+
+	@SubscribeMessage('speed')
+	speed(@MessageBody() data: any) {
+		if (data[0] == 0)
+			this.pongServerService.stop();
+		else if (data[0] == 1)
+			this.pongServerService.up();
+		else if (data[0] == 2)
+			this.pongServerService.down();
+		console.log(data[0]);
+	}
+
+	@SubscribeMessage('start')
+	start(@MessageBody() data: any) {
+		this.pongServerService.logic(data[0], data[1]);
+		return {
+			ballX : this.pongServerService.ballX,
+			ballY : this.pongServerService.ballY,
+			x 		: this.pongServerService.x,
+			y 		: this.pongServerService.y,
+			score : this.pongServerService.score,
 		}
 	}
 
