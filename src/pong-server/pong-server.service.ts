@@ -48,8 +48,9 @@ export class PongServerService {
 	ballSpeed = 5;
 
 	startDirection() {
-		let tmp = Math.random() * 1 + 1;
-		if (tmp == 1)
+		let tmp = Math.random() * 1;
+		console.log(tmp);
+		if (tmp > 0.5)
 			this.ballXS = -this.ballSpeed;
 		else
 			this.ballXS = this.ballSpeed;

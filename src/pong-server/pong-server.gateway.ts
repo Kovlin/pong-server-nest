@@ -86,10 +86,18 @@ export class PongServerGateway {
 			return {gameOk: 0}
 	}
 
+	usrNum = 0;
 	
-	handleConnection(socket: Socket) {
-		console.log(socket.id);
-		this.connUser.push(socket.id);
-		// console.log(socket);
+	handleConnection(socket: Socket){
+		if (this.usrNum < 2)
+		{
+			console.log(socket.id);
+			this.connUser.push(socket.id);
+		}
+		else
+		{
+			this.connUser[this.usrNum % 2] = socket.id;
+		}
+		this.usrNum += 1;
 	}
 }
