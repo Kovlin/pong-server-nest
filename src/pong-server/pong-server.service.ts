@@ -52,7 +52,7 @@ export class PongServerService {
 		if (tmp == 1)
 			this.ballXS = -this.ballSpeed;
 		else
-			this.ballXS = -this.ballSpeed;
+			this.ballXS = this.ballSpeed;
 		let tmp2 = Math.random() * 5 + 1;
 			this.ballYS = tmp2;
 		this.ballX = this.canW / 2;
