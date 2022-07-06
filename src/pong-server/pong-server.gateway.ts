@@ -48,12 +48,11 @@ export class PongServerGateway {
 		// console.log(data[0]);
 	}
 
-	ready1: boolean;
-	ready2: boolean;
-	ready: boolean;
+	ready1: boolean = false;
+	ready2: boolean = false;
+	ready: boolean = false;
 	@SubscribeMessage('go')
 	go(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
-
 		if (client.id == this.connUser[0])
 			this.ready1 = data[0];
 		if (client.id == this.connUser[1])
@@ -80,8 +79,11 @@ export class PongServerGateway {
 				y2 		: this.pongServerService.y2,
 				score : this.pongServerService.score,
 				score2 : this.pongServerService.score2,
+				gameOk : 1,
 			}
 		}
+		else
+			return {gameOk: 0}
 	}
 
 	
